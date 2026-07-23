@@ -9,23 +9,23 @@ A remix that fuses two earlier Side Quests into one game:
 
 The remix inserts a real-time "swim down and dodge obstacles" segment — built from SQ_W6's movement/collision/camera engine — in front of every choice screen in the SQ4 story tree. Each narrative branch is now a short playable level instead of a static slide: read the narration, dodge obstacles on the way down, then make your choice once you reach the bottom.
 
-## Concept
-
 Same story as the original *Getting Under It*: you're a diver trying to reach the ocean floor, choosing a path at each of 7 branch points, ending in one of 8 outcomes (triumphs, failures, and ambiguous discoveries). What's new is *how you get from one choice to the next* — instead of clicking through narration, you steer a diver through a themed obstacle field while an ocean current pulls you down.
 
 ## Setup and Interaction Instructions
 
 To run the sketch locally, open `index.html` in Google Chrome using Live Server (or any local static server — `loadJSON`/`loadImage` require `http://`, not `file://`).
 
-**Controls (swim levels):**
-- **A/D** or **←/→** — strafe sideways to dodge obstacles
-- **W** or **↑** — briefly resist the current (slow your descent)
-- **S** or **↓** — drop faster
-- The current always pulls you down — you don't need to hold anything to descend
+Controls (swim levels):
 
-**Choice screens:** click one of the two buttons to pick your path, same as the original.
+* Strafe sideways to dodge obstacles: **A/D** or **◀/▶**
+* Briefly resist the current (slow your descent): **W** or **▲**
+* Drop faster: **S** or **▼**
 
-**Endings:** click **Try Again** to restart from the opening.
+The current always pulls you down — you don't need to hold anything to descend.
+
+Choice screens: click one of the two buttons to pick your path, same as the original.
+
+Endings: click **Try Again** to restart from the opening.
 
 ## Process & Decisions
 
@@ -48,7 +48,7 @@ To run the sketch locally, open `index.html` in Google Chrome using Live Server 
 2. **New game state** — a `SUBSTATE_SWIMMING` / `SUBSTATE_CHOICE` layer nested inside the existing scene state machine, so every branch scene is really two states in one.
 3. **New game system** — an oxygen/hit-point system, shown as three hearts, with per-level obstacle damage, knockback, and invincibility frames, reset fresh at the start of every level (ported from SQ_W6, reskinned, and rebalanced for a no-permadeath diving game rather than a shooter).
 4. **New obstacles per branch** — 7 themed hazard layouts (rock clusters, coral, cave stalactites, kelp tangles, shipwreck debris, current rubble) authored as JSON data files, following SQ_W6's data-driven obstacle pattern.
-5. **New sound/asset pipeline** — SQ_W6's `hit.mp3` is reused for obstacle collisions; SQ4's `underwater.mp3` is reused as the ambient loop; a dedicated swim-stroke sound is wired up (see *Assets needed*, below).
+5. **New sound/asset pipeline** — SQ_W6's `hit.mp3` is reused for obstacle collisions; SQ4's `underwater.mp3` is reused as the ambient loop.
 6. **Combines two prior Side Quests' engines into one game** — one of the remix strategies suggested by the assignment itself.
 
 ### Design tradeoffs
@@ -86,5 +86,12 @@ The player and obstacles are still drawn procedurally too (see `drawPlayer()` / 
 | `assets/images/trench.png` | Ending: The Trench | Original — procedurally generated pixel art |
 | `assets/images/shipwreck_interior.png` | Ending: Lost in the Ship | Original — procedurally generated pixel art |
 | `assets/images/ocean_floor.png` | Ending: Found the Floor | Original — procedurally generated pixel art |
-| `assets/sounds/underwater.mp3` | Ambient background loop | [ShadowsAndEchoes — Fear the Deep Dark Ambient Horror](https://pixabay.com/music/mystery-fear-the-deep-dark-ambient-horror-394143/) |
-| `assets/sounds/hit.mp3` | Obstacle-collision sound (reused from SQ_W6) | [Pixabay — Retro Hurt 2](https://pixabay.com/sound-effects/film-special-effects-retro-hurt-2-236675/) |
+| `assets/sounds/underwater.mp3` | Ambient background loop | ShadowsAndEchoes, "Fear the Deep Dark Ambient Horror" (see References) |
+| `assets/sounds/hit.mp3` | Obstacle-collision sound (reused from SQ_W6) | Pixabay, "Retro Hurt 2" (see References) |
+
+## References
+
+No code was adapted from external tutorials, articles, or Stack Overflow answers — the swim/collision engine is carried over from this author's own prior Side Quest (SQ_W6) rather than an outside source, and the two audio assets above are the only non-original material, cited below in ACM format.
+
+1. ShadowsAndEchoes. 2023. *Fear the Deep Dark Ambient Horror.* Pixabay. Retrieved July 22, 2026 from https://pixabay.com/music/mystery-fear-the-deep-dark-ambient-horror-394143/
+2. Pixabay. n.d. *Retro Hurt 2.* Pixabay Sound Effects. Retrieved July 22, 2026 from https://pixabay.com/sound-effects/film-special-effects-retro-hurt-2-236675/
